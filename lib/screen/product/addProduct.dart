@@ -5,12 +5,11 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:biru/screen/product/chooseCategory.dart';
-import 'package:biru/screen/product/chooseRetailer.dart';
+import 'package:mecommerce/screen/product/chooseCategory.dart';
 import 'package:path/path.dart' as path;
 
-import 'package:biru/model/categoryProductModel.dart';
-import 'package:biru/model/retailerProductModel.dart';
+import 'package:mecommerce/model/categoryProductModel.dart';
+
 class AddProduct extends StatefulWidget {
   @override
   _AddProductState createState() => _AddProductState();
@@ -33,7 +32,6 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
-  TextEditingController retailerController = TextEditingController();
 ///////////// choose category////////////////////////////////
   CategoryProductModel model;
 
@@ -43,18 +41,6 @@ class _AddProductState extends State<AddProduct> {
 
     setState(() {
       categoryController = TextEditingController(text: model.categoryName);
-    });
-  }
-
-  /////////////////choose retailer////////////////////////////
-  RetailerProductModel a;
-
-  pilihRetailer() async {
-    a = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ChooseRetailerProduct()));
-
-    setState(() {
-      retailerController = TextEditingController(text: a.retailerName);
     });
   }
 
@@ -84,7 +70,7 @@ class _AddProductState extends State<AddProduct> {
       var stream = http.ByteStream(DelegatingStream.typed(image.openRead()));
       var length = await image.length();
       var url =
-      Uri.parse("http://192.168.1.9/mylist/api/addProduct.php");
+      Uri.parse("http://192.168.1.9/ecommerce/api/addProduct.php");
       var request = http.MultipartRequest("POST", url);
       var multipartFile = http.MultipartFile("image", stream, length,
           filename: path.basename(image.path));
@@ -93,7 +79,6 @@ class _AddProductState extends State<AddProduct> {
       request.fields['productPrice'] = priceController.text;
       request.fields['description'] = descriptionController.text;
       request.fields['idCategory'] = model.id;
-      request.fields['idRetailer'] = a.id;
       request.files.add(multipartFile);
 
       var response = await request.send();
@@ -137,19 +122,6 @@ class _AddProductState extends State<AddProduct> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "Product category",
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                pilihRetailer();
-              },
-              child: TextField(
-                enabled: false,
-                controller: retailerController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: "Product retailer",
                 ),
               ),
             ),

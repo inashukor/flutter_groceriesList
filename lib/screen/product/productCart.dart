@@ -1,13 +1,22 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:biru/model/productCartModel.dart';
-import 'package:biru/network/network.dart';
+import 'package:mecommerce/custom/prefProfile.dart';
+import 'package:mecommerce/model/productCartModel.dart';
+import 'package:mecommerce/network/network.dart';
 import 'package:device_info/device_info.dart';
+import 'package:mecommerce/repository/checkoutRepository.dart';
+import 'package:mecommerce/screen/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductCart extends StatefulWidget {
+  final VoidCallback method;
+
+  ProductCart(this.method);
+
   @override
   _ProductCartState createState() => _ProductCartState();
 }
@@ -19,12 +28,18 @@ class _ProductCartState extends State<ProductCart> {
   /////////device info //////
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final price = NumberFormat("#,##0", 'en_US');
+  bool login = false;
+  String idUsers;
 
   getDeviceInfo() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     print("Device Info : ${androidInfo.id}");
     setState(() {
       unikID = androidInfo.id;
+      login = pref.getBool(Pref.login) ?? false;
+      idUsers = pref.getString(Pref.id);
     });
     _fetchData();
   }
@@ -95,8 +110,24 @@ class _ProductCartState extends State<ProductCart> {
       "tipe": tipe,
     });
     setState(() {
+      widget.method();
       _fetchData();
     });
+  }
+
+  //////////////cek login or not////////////
+  CheckoutRepository checkoutRepository = CheckoutRepository();
+  loginTrue() async {
+    await checkoutRepository.checkout(idUsers, unikID, (){
+      setState(() {
+        widget.method();
+      });
+    },context);
+  }
+
+  loginFalse() async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Login()));
   }
 
 ///////////////////initState////////////////////////////
@@ -188,10 +219,12 @@ class _ProductCartState extends State<ProductCart> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 10,),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   InkWell(
                                     onTap: () {
-
+                                      login ? loginTrue() : loginFalse();
                                     },
                                     child: Container(
                                       padding: EdgeInsets.all(16),

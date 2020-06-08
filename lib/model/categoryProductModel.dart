@@ -1,4 +1,4 @@
-import 'package:biru/model/productModel.dart';
+import 'package:mecommerce/model/productModel.dart';
 
 class CategoryProductModel {
   final String id;

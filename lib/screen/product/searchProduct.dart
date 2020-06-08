@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:biru/model/productModel.dart';
-import 'package:biru/network/network.dart';
-import 'package:biru/screen/product/productDetail.dart';
+import 'package:mecommerce/model/productModel.dart';
+import 'package:mecommerce/network/network.dart';
+import 'package:mecommerce/screen/product/productDetail.dart';
 
 class SearchProduct extends StatefulWidget {
   @override
@@ -96,6 +96,7 @@ class _SearchProductState extends State<SearchProduct> {
             ),
           ),
         ),
+        backgroundColor: Colors.blueGrey,
       ),
       /////////////////////body///////////////////////////
       body: Container(
@@ -143,7 +144,7 @@ class _SearchProductState extends State<SearchProduct> {
                     children: <Widget>[
                       Expanded(
                         child: Image.network(
-                          "http://192.168.1.9/mylist/product/${a.pic}",
+                          "http://192.168.1.9/ecommerce/product/${a.pic}",
                           height: 200,
                           fit: BoxFit.cover,
                         ),
@@ -159,14 +160,14 @@ class _SearchProductState extends State<SearchProduct> {
                           fontSize: 18,
                         ),
                       ),
-//                      Text(
-//                        "RM ${price.format(a.productPrice)}",
-//                        style: TextStyle(
-//                          fontWeight: FontWeight.w300,
-//                          color: Colors.orange,
-//                          fontSize: 14,
-//                        ),
-//                      ),
+                      Text(
+                        "RM ${price.format(a.productPrice)}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: Colors.orange,
+                          fontSize: 14,
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:biru/model/categoryProductModel.dart';
-import 'package:biru/model/productModel.dart';
-import 'package:biru/network/network.dart';
-import 'package:biru/screen/product/addProduct.dart';
+import 'package:mecommerce/model/categoryProductModel.dart';
+import 'package:mecommerce/model/productModel.dart';
+import 'package:mecommerce/network/network.dart';
+import 'package:mecommerce/screen/product/addProduct.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:biru/screen/product/productCart.dart';
-import 'package:biru/screen/product/productDetail.dart';
-import 'package:biru/screen/product/searchProduct.dart';
+import 'package:mecommerce/screen/product/productCart.dart';
+import 'package:mecommerce/screen/product/productDetail.dart';
+import 'package:mecommerce/screen/product/searchProduct.dart';
 
 import 'package:device_info/device_info.dart';
 
@@ -23,6 +23,9 @@ final price = NumberFormat("#,##0", 'en_US');
 
 class _HomePageState extends State<HomePage> {
   var loading = false;
+
+
+  List<CategoryProductModel> listCategory = [];
 
   ////////device Info//////
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -37,7 +40,6 @@ class _HomePageState extends State<HomePage> {
     getTotalCart();
   }
   ////////////////get product with category/////////////
-  List<CategoryProductModel> listCategory = [];
   getProductWithCategory() async {
     setState(() {
       loading = true;
@@ -87,6 +89,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
+
   ///////////get total cart//////////////////////////////
   var loadingCart = false;
   var totalCart = "0";
@@ -172,7 +175,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductCart()));
+                  MaterialPageRoute(builder: (context) => ProductCart(getTotalCart)));
             },
             icon: Stack(
               children: <Widget>[
@@ -226,30 +229,31 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        backgroundColor: Colors.blueGrey,
       ),
       ///////////////////////////////////floating button///////////////////
-      floatingActionButton: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddProduct(),
-              ));
-        },
-        child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.blue,
-          ),
-          child: Text(
-            "add Product",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
+//      floatingActionButton: InkWell(
+//        onTap: () {
+//          Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                builder: (context) => AddProduct(),
+//              ));
+//        },
+//        child: Container(
+//          padding: EdgeInsets.all(16),
+//          decoration: BoxDecoration(
+//            borderRadius: BorderRadius.circular(16),
+//            color: Colors.blue,
+//          ),
+//          child: Text(
+//            "add Product",
+//            style: TextStyle(
+//              color: Colors.white,
+//            ),
+//          ),
+//        ),
+//      ),
       /////////////////////////////////body///////////////////////////////////////
       body: loading
           ? Center(
@@ -282,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.amber,
+                              color: Colors.orange,
                             ),
                             child: Text(
                               a.categoryName,
@@ -359,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                                           child: Stack(
                                             children: <Widget>[
                                               Image.network(
-                                                "http://192.168.1.9/mylist/product/${a.pic}",
+                                                "http://192.168.1.9/ecommerce/product/${a.pic}",
                                                 height: 180,
                                                 fit: BoxFit.cover,
                                               ),
@@ -397,14 +401,14 @@ class _HomePageState extends State<HomePage> {
                                             fontSize: 18,
                                           ),
                                         ),
-//                                        Text(
-//                                          "RM ${price.format(a.productPrice)}",
-//                                          style: TextStyle(
-//                                            fontWeight: FontWeight.w300,
-//                                            color: Colors.orange,
-//                                            fontSize: 14,
-//                                          ),
-//                                        ),
+                                        Text(
+                                          "RM ${price.format(a.productPrice)}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.orange,
+                                            fontSize: 14,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -456,7 +460,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Stack(
                                         children: <Widget>[
                                           Image.network(
-                                            "http://192.168.1.9/mylist/product/${a.pic}",
+                                            "http://192.168.1.9/ecommerce/product/${a.pic}",
                                             height: 180,
                                             fit: BoxFit.cover,
                                           ),
@@ -493,14 +497,14 @@ class _HomePageState extends State<HomePage> {
                                         fontSize: 18,
                                       ),
                                     ),
-//                                    Text(
-//                                      "RM ${price.format(a.productPrice)}",
-//                                      style: TextStyle(
-//                                        fontWeight: FontWeight.w300,
-//                                        color: Colors.orange,
-//                                        fontSize: 14,
-//                                      ),
-//                                    ),
+                                    Text(
+                                      "RM ${price.format(a.productPrice)}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.orange,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

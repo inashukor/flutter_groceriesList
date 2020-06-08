@@ -1,8 +1,12 @@
-import 'package:biru/screen/menu/homepage.dart';
-import 'package:biru/screen/menu/listpage.dart';
-import 'package:biru/screen/menu/profilepage.dart';
-import 'package:biru/screen/menu/retailerpage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:mecommerce/custom/dynamicLinkCustom.dart';
+import 'package:mecommerce/custom/prefProfile.dart';
+import 'package:mecommerce/screen/menu/homepage.dart';
+import 'package:mecommerce/screen/menu/listpage.dart';
+import 'package:mecommerce/screen/menu/profilepage.dart';
+import 'package:mecommerce/screen/menu/retailerpage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -10,6 +14,46 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  String fcmToken;
+
+
+  ///////////////get Pref//////////////////
+  String name;
+  bool login = false;
+  getPref() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      name = pref.getString(Pref.name);
+      login = pref.getBool(Pref.login) ?? false;
+    });
+    print(name);
+    print(login);
+  }
+/////////////firebase dynamic link//////////////
+
+  final DynamicLinkServices _dynamicLinkServices = DynamicLinkServices();
+
+  Future handleStartupClass() async{
+    await _dynamicLinkServices.handleDynamicLink(context);
+  }
+//////////////////////////firebase generate token///////////////////////
+
+  generatedToken()async{
+    fcmToken = await _firebaseMessaging.getToken();
+    print("FCM Token : $fcmToken");
+  }
+
+  //////////////init state//////////////////
+  @override
+  void initState(){
+    super.initState();
+    generatedToken();
+    handleStartupClass();
+    getPref();
+  }
+////////////////////////////menu///////////////////////
   int selectIndex = 0;
 
   @override
@@ -48,7 +92,7 @@ class _MenuState extends State<Menu> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.blue,
+        color: Colors.blueGrey,
         child: Container(
           height: 60,
           child: Row(
@@ -74,7 +118,7 @@ class _MenuState extends State<Menu> {
                   });
                 },
                 child: Icon(
-                  Icons.list,
+                  Icons.favorite,
                   color: Colors.white,
                 ),
               ),

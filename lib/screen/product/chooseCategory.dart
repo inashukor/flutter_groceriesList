@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:biru/model/categoryProductModel.dart';
-import 'package:biru/network/network.dart';
+import 'package:mecommerce/model/categoryProductModel.dart';
+import 'package:mecommerce/network/network.dart';
 
 class ChooseCategoryProduct extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class ChooseCategoryProduct extends StatefulWidget {
 class _ChooseCategoryProductState extends State<ChooseCategoryProduct> {
 
   var loading = false;
-/////////////////get product with category//////////////////////////
+
   List<CategoryProductModel> listCategory = [];
 
   getProductWithCategory() async {
@@ -37,7 +37,7 @@ class _ChooseCategoryProductState extends State<ChooseCategoryProduct> {
       });
     }
   }
-////////////////initstate//////////////////////////////////////////////
+
   @override
   void initState(){
     super.initState();

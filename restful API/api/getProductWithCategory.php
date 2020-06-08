@@ -22,6 +22,7 @@ while ($a = mysqli_fetch_array($sql)){
             'id'=>$b['id'],
             'idCategory'=>$b['idCategory'],
             'productName'=>$b['productName'],
+            'productPrice'=>(int)$b['productPrice'],
             'createdDate'=>$b['createdDate'],
             'pic'=>$b['pic'],
             'status'=>$b['status'],

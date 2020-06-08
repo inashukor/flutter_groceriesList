@@ -1,6 +1,6 @@
 class NetworkUrl {
   //static String url = "http://192.168.1.104/grocery_list/api";
-  static String url = "http://192.168.1.9/mylist/api";
+  static String url = "http://192.168.1.9/ecommerce/api";
   //static String url = "http://192.168.137.1/grocery_list/api";
 
   static String getProduct() {
@@ -9,10 +9,6 @@ class NetworkUrl {
 
   static String getProductCategory() {
     return "$url/getProductWithCategory.php";
-  }
-
-  static String getProductRetailer() {
-    return "$url/getProductWithRetailer.php";
   }
 
   static String getProductFavoriteWithoutLogin(String deviceInfo) {
@@ -41,6 +37,22 @@ class NetworkUrl {
 
   static String getTotalCart(String unikID) {
     return "$url/getTotalCart.php?unikID=$unikID";
+  }
+
+  static String getProductDetail(String idProduct) {
+    return "$url/getProductDetail.php?idProduct=$idProduct";
+  }
+
+  static String login() {
+    return "$url/cekEmail.php";
+  }
+
+  static String signup() {
+    return "$url/signup.php";
+  }
+
+  static String checkout() {
+    return "$url/checkout.php";
   }
 
 }

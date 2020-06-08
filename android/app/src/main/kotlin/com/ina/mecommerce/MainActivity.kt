@@ -1,4 +1,4 @@
-package com.example.biru
+package com.ina.mecommerce
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

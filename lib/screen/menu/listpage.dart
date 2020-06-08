@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
-import 'package:biru/model/productModel.dart';
+import 'package:mecommerce/model/productModel.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:biru/network/network.dart';
-import 'package:biru/screen/product/productDetail.dart';
-import 'package:biru/screen/menu/homepage.dart';
+import 'package:mecommerce/network/network.dart';
+import 'package:mecommerce/screen/product/productDetail.dart';
+import 'package:mecommerce/screen/menu/homepage.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -108,7 +108,7 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor:  Colors.blueGrey,),
       body: RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView(
@@ -164,7 +164,7 @@ class _ListPageState extends State<ListPage> {
                                       child: Stack(
                                         children: <Widget>[
                                           Image.network(
-                                            "http://192.168.1.9/mylist/product/${a.pic}",
+                                            "http://192.168.1.9/ecommerce/product/${a.pic}",
                                             height: 180,
                                             fit: BoxFit.cover,
                                           ),
@@ -201,14 +201,14 @@ class _ListPageState extends State<ListPage> {
                                         fontSize: 18,
                                       ),
                                     ),
-//                                    Text(
-//                                      "RM ${price.format(a.productPrice)}",
-//                                      style: TextStyle(
-//                                        fontWeight: FontWeight.w300,
-//                                        color: Colors.orange,
-//                                        fontSize: 14,
-//                                      ),
-//                                    ),
+                                    Text(
+                                      "RM ${price.format(a.productPrice)}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.orange,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
