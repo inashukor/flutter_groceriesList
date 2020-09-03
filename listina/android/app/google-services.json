@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1051502378607",
+    "firebase_url": "https://listina-5e32a.firebaseio.com",
+    "project_id": "listina-5e32a",
+    "storage_bucket": "listina-5e32a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051502378607:android:d5b16be85838c45c00979a",
+        "android_client_info": {
+          "package_name": "com.hello.listina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051502378607-hvg0j4m67lla7uofr1db5oaett975mgd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hello.listina",
+            "certificate_hash": "36c8a3028e4e75d6e0d252df8e50c71ffe6b19af"
+          }
+        },
+        {
+          "client_id": "1051502378607-ep2al5tnu2h3tq571q2fqid4lfoacei7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASRt65Yn1ouOZ1No04Jd6dwNpn22NPYL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051502378607-ep2al5tnu2h3tq571q2fqid4lfoacei7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
